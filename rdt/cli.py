@@ -24,6 +24,8 @@ def cmd_run(a) -> int:
         cfg.setdefault("search", {})["days"] = a.days
     if a.keywords:
         cfg.setdefault("search", {})["keywords"] = [k.strip() for k in a.keywords.split(",") if k.strip()]
+    if a.sources:
+        cfg["_only_sources"] = [n.strip() for n in a.sources.split(",") if n.strip()]
     res = run(cfg, a.out, dry_run=a.dry_run)
     print(f"\nDone. {len(res.drafts)} drafts, {len(res.skipped)} skipped.")
     print(f"Review: {res.out_dir / 'report.md'}")
@@ -66,6 +68,7 @@ def main(argv=None) -> int:
     r.add_argument("-o", "--out", default="runs")
     r.add_argument("--days", type=int, help="override look-back window")
     r.add_argument("--keywords", help="override keywords (comma-separated)")
+    r.add_argument("--sources", help="run only these configured sources (comma-separated names)")
     r.add_argument("--dry-run", action="store_true", help="don't update the contact log")
     r.set_defaults(fn=cmd_run)
     s = sub.add_parser("send", help="send drafts from a run folder via SMTP")

@@ -13,7 +13,8 @@ from .composer import Draft, compose_llm, compose_template
 from .http import HttpClient
 from .models import Paper
 from .outbox import ContactLog, write_eml
-from .sources import arxiv, biorxiv
+from .sources import configured_sources
+from .sources import fetch as fetch_source
 
 CONF_RANK = {"low": 1, "medium": 2, "high": 3}
 
@@ -21,6 +22,8 @@ CONF_RANK = {"low": 1, "medium": 2, "high": 3}
 def load_config(path: str | Path) -> dict:
     cfg = tomllib.loads(Path(path).read_text())
     base = Path(path).parent
+    cfg["_config_dir"] = str(base.resolve())  # custom source files resolve relative to the config
+    configured_sources(cfg.get("sources"))     # fail fast on a bad [[sources]] block
     comp = cfg.setdefault("compose", {})
     for key in ("subject_template", "body_template"):
         f = comp.get(key + "_file")
@@ -40,24 +43,21 @@ class RunResult:
 def discover(cfg: dict, http) -> list[Paper]:
     s = cfg.get("search", {})
     kws, days = s.get("keywords", []), int(s.get("days", 7))
-    src = cfg.get("sources", {})
+    specs = configured_sources(cfg.get("sources"), cfg.get("_only_sources"))
+    if not specs:
+        raise ValueError("No sources configured. Add at least one [[sources]] block to your config "
+                         "(see config.example.toml).")
     found: list[Paper] = []
 
-    a = src.get("arxiv", {})
-    if a.get("enabled", True):
-        print("Querying arXiv ...")
+    for spec in specs:
+        print(f"Querying {spec['name']} ...")
         try:
-            found += arxiv.search(http, kws, a.get("categories", []), days, int(a.get("max_results", 100)))
+            got = fetch_source(spec, http, kws, days, cfg.get("_config_dir"))
         except Exception as e:
-            print(f"  ! arXiv failed: {e}")
-    for server in ("biorxiv", "medrxiv"):
-        b = src.get(server, {})
-        if b.get("enabled", False):
-            print(f"Querying {server} ...")
-            try:
-                found += biorxiv.search(http, server, b.get("categories", []), days, int(b.get("max_records", 2000)))
-            except Exception as e:
-                print(f"  ! {server} failed: {e}")
+            print(f"  ! {spec['name']} failed: {e}")
+            continue
+        print(f"  {len(got)} papers")
+        found += got
 
     # de-duplicate on normalised title (same work can be cross-posted)
     uniq: dict[str, Paper] = {}

@@ -66,7 +66,7 @@ def _fields(paper: Paper, author: Author, sender: dict) -> dict:
         "author_name": author.name,
         "title": paper.title,
         "title_short": title_short,
-        "source_name": SOURCE_NAMES.get(paper.source, paper.source),
+        "source_name": paper.source_name or SOURCE_NAMES.get(paper.source, paper.source),
         "published": paper.published,
         "url": paper.url,
         "matched_terms": terms_txt,

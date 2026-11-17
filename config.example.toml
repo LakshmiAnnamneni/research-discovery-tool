@@ -9,20 +9,44 @@ days      = 7                         # look-back window
 min_score = 0.35                      # 0..1 relevance threshold
 max_papers = 25                       # cap per run (highest scores first)
 
-[sources.arxiv]
-enabled = true
-# https://arxiv.org/category_taxonomy  (empty = all categories)
-categories = ["cs.CL", "cs.LG", "q-fin.RM", "q-fin.CP"]
-max_results = 200
+# ---------------------------------------------------------------------------
+# SOURCES: only the [[sources]] blocks below are searched. Nothing runs by
+# default. Uncomment and edit the ones you want, or add your own. Each block
+# needs a `type`; rss and python sources also need a unique `name`.
+# Run a subset with:  python -m rdt run -c config.toml --sources arxiv,my-feed
+# ---------------------------------------------------------------------------
 
-[sources.biorxiv]
-enabled = false
-# e.g. bioinformatics, genomics, neuroscience, microbiology, systems biology
-categories = ["bioinformatics"]
+# Built-in: arXiv (keyword search). Categories: https://arxiv.org/category_taxonomy
+# [[sources]]
+# type = "arxiv"
+# categories = ["cs.CL", "cs.LG", "q-fin.RM", "q-fin.CP"]   # empty = all
+# max_results = 200
 
-[sources.medrxiv]
-enabled = false
-categories = ["health informatics"]
+# Built-in: bioRxiv / medRxiv (no keyword search; filtered by category, then ranked)
+# [[sources]]
+# type = "biorxiv"
+# categories = ["bioinformatics"]
+#
+# [[sources]]
+# type = "medrxiv"
+# categories = ["health informatics"]
+
+# Any RSS / Atom feed: journals, SSRN, chemRxiv, Research Square, a lab's blog ...
+# Look for the "RSS" link on the site and paste its URL.
+# [[sources]]
+# name  = "my-journal"                    # unique; used in paper keys and the contact log
+# type  = "rss"
+# url   = "https://example.org/feed.xml"
+# label = "Journal of Example Studies"    # how the source is named in emails (optional)
+# categories = []                          # keep only items tagged with these (optional)
+# pdf_url_template = "{url}.full.pdf"      # build a PDF link if the feed has none (optional)
+
+# Your own Python code, for anything without a feed (an internal API, a database ...).
+# See examples/my_source.py for the function signature.
+# [[sources]]
+# name = "my-source"
+# type = "python"
+# function = "examples/my_source.py:search"   # path relative to this config file
 
 [contacts]
 fetch_pdfs = true          # read the PDF's first pages for author emails

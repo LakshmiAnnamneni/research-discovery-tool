@@ -17,7 +17,7 @@ class Author:
 
 @dataclass
 class Paper:
-    source: str               # arxiv | biorxiv | medrxiv
+    source: str               # arxiv | biorxiv | medrxiv | the name of a configured rss/python source
     id: str                   # arXiv id or DOI
     title: str
     abstract: str
@@ -28,6 +28,7 @@ class Paper:
     categories: list[str] = field(default_factory=list)
     relevance: float = 0.0
     matched_terms: list[str] = field(default_factory=list)
+    source_name: Optional[str] = None  # display name for emails, from the source's `label`
 
     @property
     def key(self) -> str:
