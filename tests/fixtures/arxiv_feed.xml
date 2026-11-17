@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/">
+  <title>arXiv Query</title>
+  <opensearch:totalResults>3</opensearch:totalResults>
+  <entry>
+    <id>http://arxiv.org/abs/2611.01234v1</id>
+    <published>{TODAY}T10:00:00Z</published>
+    <title>Retrieval-Augmented Large Language Models for
+      Credit Risk Assessment</title>
+    <summary>We study retrieval-augmented generation for credit risk modelling. Large language
+      models grounded in loan documents improve credit risk assessment over gradient boosting baselines.</summary>
+    <author><name>Priya Raman</name><arxiv:affiliation>University of Florida</arxiv:affiliation></author>
+    <author><name>Marcus J. Lee</name></author>
+    <author><name>Wei Zhang</name></author>
+    <link href="http://arxiv.org/abs/2611.01234v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2611.01234v1" rel="related" type="application/pdf"/>
+    <category term="q-fin.RM"/>
+    <category term="cs.CL"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2611.05678v2</id>
+    <published>{TODAY}T09:00:00Z</published>
+    <title>A Survey of Galaxy Rotation Curves</title>
+    <summary>We review rotation curves of spiral galaxies.</summary>
+    <author><name>Ana Torres</name></author>
+    <link title="pdf" href="http://arxiv.org/pdf/2611.05678v2" rel="related" type="application/pdf"/>
+    <category term="astro-ph.GA"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2601.00001v1</id>
+    <published>2020-01-01T09:00:00Z</published>
+    <title>Old Paper on Credit Risk</title>
+    <summary>Credit risk with large language models.</summary>
+    <author><name>Old Author</name></author>
+    <category term="q-fin.RM"/>
+  </entry>
+</feed>

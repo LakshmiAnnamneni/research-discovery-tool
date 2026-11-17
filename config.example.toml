@@ -1,0 +1,53 @@
+# Research Discovery Tool configuration. Copy to config.toml and edit.
+
+[search]
+# Topic keywords/phrases. Matched in title (3x weight) and abstract.
+keywords = ["large language model", "credit risk", "fraud detection", "retrieval-augmented generation"]
+exclude   = ["survey", "retracted"]   # drop papers mentioning these
+must_have = []                        # every paper must mention all of these
+days      = 7                         # look-back window
+min_score = 0.35                      # 0..1 relevance threshold
+max_papers = 25                       # cap per run (highest scores first)
+
+[sources.arxiv]
+enabled = true
+# https://arxiv.org/category_taxonomy  (empty = all categories)
+categories = ["cs.CL", "cs.LG", "q-fin.RM", "q-fin.CP"]
+max_results = 200
+
+[sources.biorxiv]
+enabled = false
+# e.g. bioinformatics, genomics, neuroscience, microbiology, systems biology
+categories = ["bioinformatics"]
+
+[sources.medrxiv]
+enabled = false
+categories = ["health informatics"]
+
+[contacts]
+fetch_pdfs = true          # read the PDF's first pages for author emails
+max_pages = 3
+min_confidence = "medium"  # high | medium | low : how sure we must be the email belongs to the author
+
+[compose]
+mode = "template"          # "template" or "llm" (needs ANTHROPIC_API_KEY)
+model = "claude-sonnet-5-5"
+# Optional custom templates (string.Template placeholders: $salutation $title $title_short
+# $source_name $published $url $matched_terms $purpose $ask $sender_name $sender_title
+# $sender_org $sender_email $author_name)
+# subject_template_file = "templates/subject.txt"
+# body_template_file    = "templates/body.txt"
+
+[sender]
+name = "Your Name"
+title = "Founder"
+organization = "Your Firm"
+email = "you@yourfirm.com"
+salutation_style = "Dr."
+purpose = "I lead a technology consulting practice that helps financial-services firms put applied AI research into production."
+ask = "set up a short call to hear more about where you plan to take this work"
+
+[outreach]
+max_emails_per_run = 10
+log_path = "rdt_contact_log.json"   # prevents contacting the same person twice
+do_not_contact = []                  # emails or "@domain.edu"

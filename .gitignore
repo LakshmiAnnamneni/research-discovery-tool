@@ -1,0 +1,15 @@
+# Personal config (sender details) — commit config.example.toml instead
+config.toml
+
+# Run output and outreach history (contain author emails)
+runs/
+rdt_contact_log.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+
+# macOS
+.DS_Store

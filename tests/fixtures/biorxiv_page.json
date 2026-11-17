@@ -1,0 +1,20 @@
+{
+  "messages": [{"status": "ok", "interval": "x", "cursor": 0, "count": 3, "count_new_papers": "3", "total": "3"}],
+  "collection": [
+    {"doi": "10.1101/2026.11.10.123456", "title": "Machine learning predicts antibiotic resistance from bacterial genomes",
+     "authors": "Okafor, Chidi; Nguyen, Linh T.; Svensson, Erik", "author_corresponding": "Erik Svensson",
+     "author_corresponding_institution": "Karolinska Institutet", "date": "{TODAY}", "version": "1", "type": "new results",
+     "license": "cc_by", "category": "bioinformatics",
+     "abstract": "We apply machine learning to whole-genome sequences to predict antibiotic resistance.", "published": "NA", "server": "bioRxiv"},
+    {"doi": "10.1101/2026.11.10.123456", "title": "Machine learning predicts antibiotic resistance from bacterial genomes",
+     "authors": "Okafor, Chidi; Nguyen, Linh T.; Svensson, Erik", "author_corresponding": "Erik Svensson",
+     "author_corresponding_institution": "Karolinska Institutet", "date": "{TODAY}", "version": "2", "type": "new results",
+     "license": "cc_by", "category": "bioinformatics",
+     "abstract": "We apply machine learning to whole-genome sequences to predict antibiotic resistance. Version 2.", "published": "NA", "server": "bioRxiv"},
+    {"doi": "10.1101/2026.11.11.999999", "title": "Root architecture in drought-stressed maize",
+     "authors": "Diaz, Maria", "author_corresponding": "Maria Diaz",
+     "author_corresponding_institution": "UC Davis", "date": "{TODAY}", "version": "1", "type": "new results",
+     "license": "cc_by", "category": "plant biology",
+     "abstract": "Roots.", "published": "NA", "server": "bioRxiv"}
+  ]
+}
