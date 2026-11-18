@@ -8,6 +8,14 @@ An agent that finds new pre-prints on a topic, works out who wrote them and how 
  bioRxiv       scoring,   → emails → matched   or Claude    report.md        you confirm
  medRxiv       exclusions   to authors                      contacts.csv
 ```
+## Architectural questions that need to be considered before creating the agent
+
+1. Do you have a token limit in mind that you would like to stay under?
+2. How many users are going to use this agent?
+3. Are all the users connect to same website or the access differs based on the user credentials?
+4. How often do you add new sources to the list?
+5. Users manually trigger the agents or you want agent to run on a schedule?
+
 
 ## Quick start
 
